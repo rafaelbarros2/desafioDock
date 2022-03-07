@@ -5,14 +5,14 @@ import java.util.Objects;
 public class Certidao {
 
     private Long id;
-    private String name;
+    private String nome;
 
     public Certidao() {
     }
 
-    public Certidao(Long id, String name) {
+    public Certidao(Long id, String nome) {
         this.id = id;
-        this.name = name;
+        this.nome = nome;
     }
 
     public Long getId() {
@@ -23,12 +23,12 @@ public class Certidao {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNome() {
+        return nome;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.nome = nome;
     }
 
     @Override
