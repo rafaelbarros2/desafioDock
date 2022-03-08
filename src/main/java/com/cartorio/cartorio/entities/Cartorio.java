@@ -1,61 +1,35 @@
 package com.cartorio.cartorio.entities;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
+@Getter
+@Setter
 public class Cartorio implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    @OneToMany
-    @JoinColumn(name="certidao_id")
-    private List<Certidao> certidaos;
-    public Cartorio() {
-    }
-    public Cartorio(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    private  Long id;
+    private String nome;
+    private String endereco;
+    @OneToMany(mappedBy = "cartorio",cascade = CascadeType.ALL)
+    private Set<Certidao> certidoes = new HashSet<>();
 
-    public List<Certidao> getCertidaos() {
-        return certidaos;
-    }
+    public void setCertidoes(Set<Certidao> certidoes) {
+        this.certidoes = certidoes;
 
-    public void setCertidaos(List<Certidao> certidaos) {
-        this.certidaos = certidaos;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cartorio)) return false;
-        Cartorio cartorio = (Cartorio) o;
-        return id.equals(cartorio.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+        for(Certidao b : certidoes) {
+            b.setCartorio(this);
+        }
     }
 }
