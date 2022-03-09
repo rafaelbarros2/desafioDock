@@ -22,6 +22,12 @@ public class CartorioModelController {
 
     @Autowired
     private CertidaoClient certidaoClient;
+
+    @GetMapping("/login")
+    public String Login(){
+        return "login";
+    }
+
     @GetMapping("/")
     public String Index(Model model){
         List<Cartorio> cartorios = service.findAll();
