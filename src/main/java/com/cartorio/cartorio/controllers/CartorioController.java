@@ -1,6 +1,7 @@
 package com.cartorio.cartorio.controllers;
 
 import com.cartorio.cartorio.dtos.CartorioDTO;
+import com.cartorio.cartorio.entities.Cartorio;
 import com.cartorio.cartorio.services.CartorioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,14 @@ public class CartorioController {
     private CartorioService service;
 
     @GetMapping
-    public ResponseEntity<List<CartorioDTO>> findAll() {
-        List<CartorioDTO> list = service.findAll();
+    public ResponseEntity<Page<CartorioDTO>> findAllpage( Pageable pageable) {
+        Page<CartorioDTO> list = service.findAllPage(pageable);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("findAll")
+    public ResponseEntity<List<Cartorio>> findAll() {
+        List<Cartorio> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 

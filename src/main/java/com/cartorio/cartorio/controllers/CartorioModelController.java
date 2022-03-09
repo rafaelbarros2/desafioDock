@@ -1,6 +1,8 @@
 package com.cartorio.cartorio.controllers;
 
+import com.cartorio.cartorio.client.CertidaoClient;
 import com.cartorio.cartorio.dtos.CartorioDTO;
+import com.cartorio.cartorio.dtos.CertidaoDTO;
 import com.cartorio.cartorio.entities.Cartorio;
 import com.cartorio.cartorio.services.CartorioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,35 +11,47 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CartorioModelController {
 
     @Autowired
     private CartorioService service;
 
+    @Autowired
+    private CertidaoClient certidaoClient;
     @GetMapping("/")
     public String Index(Model model){
-
-        List<CartorioDTO> cartorios = service.findAll();
+        List<Cartorio> cartorios = service.findAll();
         model.addAttribute("cartorios", cartorios);
         return "index";
     }
 
-    @GetMapping(value = "/{id}")
-    public String userView(@PathVariable("id") Long id, Model model){
-        CartorioDTO cartorio = service.findById(id);
-        model.addAttribute("cartorios", cartorio);
-        return "index";
+    @GetMapping("/certidao")
+    public ModelAndView certidao(Model model){
+        ModelAndView mv = new ModelAndView("index");
+        List<CertidaoDTO> certidoes = certidaoClient.findAll();
+        model.addAttribute("index", certidoes);
+        return mv;
     }
 
-    @GetMapping("/Cadastrar")
+//    @GetMapping(value = "/{id}")
+//    public String userView(@PathVariable("id") Long id, Model model){
+//        CartorioDTO cartorio = service.findById(id);
+//        model.addAttribute("cartorios", cartorio);
+//        return "index";
+//    }
+
+    @GetMapping("/cadastro")
     public String Cadastrar(Model model){
         CartorioDTO cartorios = new CartorioDTO();
         model.addAttribute("cartorio",cartorios);
-        return "cadastrar-editar/cadastro";
+
+//        List<CertidaoDTO> certidoes = certidaoClient.findAll();
+//        model.addAttribute("certidoes", certidoes);
+        return "cadastro";
     }
 
     @GetMapping(value = "/Cadastrar/Sucesso")
@@ -48,7 +62,7 @@ public class CartorioModelController {
     @GetMapping(value = "/editar/{id}")
     public String EditForm(@PathVariable("id") Long id,Model model){
         CartorioDTO cartorio = service.findById(id);
-        model.addAttribute("pessoaobj", cartorio);
+        model.addAttribute("cartorio", cartorio);
 
         return "cadastrar-editar/editar";
     }

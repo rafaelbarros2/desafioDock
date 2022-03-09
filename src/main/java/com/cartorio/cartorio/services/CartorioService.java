@@ -12,13 +12,16 @@ import com.cartorio.cartorio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartorioService {
@@ -33,11 +36,16 @@ public class CartorioService {
     private CertidaoClient client;
 
     @Transactional(readOnly = true)
-    public List<CartorioDTO> findAll() {
-        List<Cartorio> list = repository.findAll();
-        return (List<CartorioDTO>) list.stream().map(x -> new CartorioDTO(x));
+    public Page<CartorioDTO> findAllPage(Pageable pageable) {
+        Page<Cartorio> list = repository.findAll(pageable);
+        return list.map(x -> new CartorioDTO(x));
     }
 
+    @Transactional(readOnly = true)
+    public List<Cartorio> findAll() {
+
+        return repository.findAll();
+    }
     @Transactional(readOnly = true)
     public CartorioDTO findById(Long id) {
         Optional<Cartorio> obj = repository.findById(id);

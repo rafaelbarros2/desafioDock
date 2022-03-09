@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+  <link th:href="@{css/Cadastro.css}" rel="stylesheet">
+
+
+  <title>Cadastro</title>
+</head>
+<body>
+<h2>Cadastro</h2>
+<main class="container">
+  <form th:action="@{/salvar}" method="post" th:object="${cartorio}">
+    <div class="grid-1">
+
+      <div class="campo tamanho1 ">
+        <p><Strong>Id</Strong></p>
+        <input id="matriculai" type="text" placeholder="Gerado automaticamente" name="id" th:field="*{id}" disabled/>
+      </div>
+
+      <div class="">
+        <div class="campo tamanho2 margem4">
+          <p><Strong>Nome</Strong></p>
+          <input id="nomei" type="text" placeholder=" Digite o nome do Cartorio" maxlength="50" autocomplete="off" name="nome" th:field="*{nome}" required/>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="campo tamanho2 margem4">
+          <p><Strong>Nome</Strong></p>
+          <input id="nome" type="text" placeholder=" Digite o endereço" maxlength="50" autocomplete="off" name="nome" th:field="*{endereco}" required/>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-4">
+
+      <div class="campo tamanho">
+        <p><strong>Certidao:</strong></p>
+        <tr th:each="certidoes :${certidoes}" id="tr">
+          <option value="">Selecione sua opção</option>
+          <option th:each="c:${certidao}"
+                  th:text="${c.nome}"></option>
+        </select>
+        </tr>
+      </div>
+    </div>
+
+    <div class="grid-8">
+
+      <div class="">
+        <a href="/" class="link camp_voltar_aux" id="id_voltar">Cancelar</a>
+      </div>
+      <div class="margem3">
+        <a ><button class="link camp_incluir_aux" id="id_incluir" type="submit">Salvar</button></a>
+
+      </div>
+
+    </div>
+  </form>
+
+</main>
+<script type="text/javascript" th:src="@{js/Cadastro.js}"></script>
+</body>
+</html>
