@@ -22,16 +22,15 @@ public class Cartorio implements Serializable {
     private  Long id;
     private String nome;
     private String endereco;
-    @OneToMany(mappedBy = "cartorio",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Certidao> certidoes = new HashSet<>();
 
-    public void setCertidoes(Set<Certidao> certidoes) {
-        this.certidoes = certidoes;
-
-        for(Certidao b : certidoes) {
-            b.setCartorio(this);
-        }
-    }
+//    public void setCertidoes(Set<Certidao> certidoes) {
+//        this.certidoes = certidoes;
+//        for(Certidao b : certidoes) {
+//            b.setCartorio(this);
+//        }
+//    }
 
     public Cartorio(Long id, String nome, String endereco) {
         this.id = id;

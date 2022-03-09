@@ -9,12 +9,12 @@ import com.cartorio.cartorio.entities.Certidao;
 public class Factory {
 
     public static CertidaoDTO createdCertidaoDTO() {
-        Certidao certidao = new Certidao(1L, "2° Via de Certidão de Casamento",null);
+        Certidao certidao = new Certidao(1L, "2° Via de Certidão de Casamento");
         return new CertidaoDTO(certidao);
     }
 
     public static Certidao createdCertidao() {
-        Certidao certidao = new Certidao(1L, "2° Via de Certidão de Casamento",null);
+        Certidao certidao = new Certidao(1L, "2° Via de Certidão de Casamento");
         return certidao;
     }
 
