@@ -1,4 +1,4 @@
-package com.cartorio.cartorio.resoruces.exceptions;
+package com.cartorio.cartorio.controllers.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;

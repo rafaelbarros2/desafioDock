@@ -1,4 +1,4 @@
-package com.cartorio.cartorio.resoruces;
+package com.cartorio.cartorio.controllers;
 
 import com.cartorio.cartorio.dtos.CartorioDTO;
 import com.cartorio.cartorio.services.CartorioService;
@@ -10,21 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/cartorios")
-public class CartorioResource {
+public class CartorioController {
 
     @Autowired
     private CartorioService service;
 
     @GetMapping
-    public ResponseEntity<Page<CartorioDTO>> findAll(
-            @RequestParam(value = "certidaoId", defaultValue = "0") Long certidaoId,
-            @RequestParam(value = "name", defaultValue = "") String name,
-            Pageable pageable) {
-
-        Page<CartorioDTO> list = service.findAllPaged(certidaoId, name.trim(), pageable);
+    public ResponseEntity<List<CartorioDTO>> findAll() {
+        List<CartorioDTO> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
@@ -43,7 +40,7 @@ public class CartorioResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO dto) {
+    public ResponseEntity<CartorioDTO> update(@PathVariable Long id, @RequestBody CartorioDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

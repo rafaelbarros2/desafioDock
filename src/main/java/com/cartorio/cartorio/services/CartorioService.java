@@ -6,6 +6,7 @@ import com.cartorio.cartorio.dtos.CertidaoDTO;
 import com.cartorio.cartorio.entities.Cartorio;
 import com.cartorio.cartorio.entities.Certidao;
 import com.cartorio.cartorio.repositories.CartorioRepository;
+import com.cartorio.cartorio.repositories.CertidaRepository;
 import com.cartorio.cartorio.services.exceptions.DatabaseException;
 import com.cartorio.cartorio.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,15 @@ public class CartorioService {
     private CartorioRepository repository;
 
     @Autowired
+    private CertidaRepository certidaRepository;
+
+    @Autowired
     private CertidaoClient client;
 
     @Transactional(readOnly = true)
-    public Page<CartorioDTO> findAllPaged(Long categoryId, String name, Pageable pageable) {
-        List<Certidao> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId));
-        Page<Product> page = repository.find(categories, name, pageable);
-        repository.findProductsWithCategories(page.getContent());
-        return page.map(x -> new ProductDTO(x, x.getCategories()));
+    public List<CartorioDTO> findAll() {
+        List<Cartorio> list = repository.findAll();
+        return (List<CartorioDTO>) list.stream().map(x -> new CartorioDTO(x));
     }
 
     @Transactional(readOnly = true)
