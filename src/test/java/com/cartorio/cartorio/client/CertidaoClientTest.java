@@ -1,7 +1,7 @@
 package com.cartorio.cartorio.client;
 
 import com.cartorio.cartorio.dtos.CertidaoDTO;
-import com.cartorio.cartorio.factory.FactoryCertidao;
+import com.cartorio.cartorio.factory.Factory;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
@@ -27,7 +27,7 @@ public class CertidaoClientTest {
 
     @BeforeEach
     public void setup() {
-        dto = FactoryCertidao.createdProduct();
+        dto = Factory.createdCertidaoDTO();
     }
 
     private void builderClientOpenFeingClient(MockClient mockClient){

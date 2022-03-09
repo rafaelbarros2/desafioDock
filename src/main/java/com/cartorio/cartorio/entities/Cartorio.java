@@ -32,4 +32,10 @@ public class Cartorio implements Serializable {
             b.setCartorio(this);
         }
     }
+
+    public Cartorio(Long id, String nome, String endereco) {
+        this.id = id;
+        this.nome = nome;
+        this.endereco = endereco;
+    }
 }
